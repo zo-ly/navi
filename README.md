@@ -2,7 +2,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## TODO
 - [x] 搜索栏
-- [ ] 名言警句
+- [x] 名言警句
 - [ ] 移动端响应式
 - [ ] 快捷访问
 - [ ] 可拖拽
