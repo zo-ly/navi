@@ -4,10 +4,7 @@ import { enginesMenu } from '../utils/constants'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { SearchBarContext } from '../utils/context'
 
-interface Props {
-  placement?: 'top' | 'bottom'
-}
-const SearchEngines: FC<Props> = ({ placement = 'top' }) => {
+const SearchEngines: FC = () => {
   const { currentEngine, setCurrentEngine } = useContext(SearchBarContext)
   const [showMenu, setShowMenu] = useState(false)
   const [parent] = useAutoAnimate<HTMLDivElement>()
@@ -50,12 +47,10 @@ const SearchEngines: FC<Props> = ({ placement = 'top' }) => {
         />
       </div>
       {showMenu && (
-        <div
-          className={`absolute ${placement}-0 left-0 bg-white rounded-3xl shadow-md overflow-hidden`}
-        >
+        <div className="absolute z-10 top-0 md:bottom-auto left-0 text-slate-800 bg-white rounded-3xl shadow-md overflow-hidden">
           {Object.entries(enginesMenu)
             .sort(([engineA], [engineB]) => {
-              const pivot = placement === 'top' ? -1 : 1
+              const pivot = -1
               if (engineA === currentEngine) return pivot
               if (engineB === currentEngine) return pivot * -1
               return 0

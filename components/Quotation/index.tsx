@@ -21,13 +21,16 @@ const Quotation: FC = () => {
   }, [])
 
   return (
-    <div ref={parent} className="absolute top-24 left-24 text-sm font-mono">
+    <div ref={parent} className="block md:inline-block text-sm font-mono">
       {data.content && (
-        <div className="m-0 py-4 text-slate-50 text-sm bg-gray-100/75 rounded-xl bg-gradient-to-r from-cyan-500 to-pink-500 bg-[length:400%_400%] animate-gradient">
-          <div className="px-4 max-w-md max-h-36 overflow-auto ">
-            <p className="block font-bold">{data.content}</p>
-            <p className="mt-2 mb-4">{data.translation}</p>
-            <p className="text-right">———— {data.author}</p>
+        <div className="relative m-0 pt-10 pb-6 text-slate-50 text-sm rounded-xl bg-gradient-to-r from-cyan-500 to-pink-500 bg-[length:400%_400%] animate-gradient">
+          <div className="px-4 max-w-md max-h-36 overflow-auto">
+            <i className="absolute top-3 left-3 font-serif font-bold text-4xl">
+              “
+            </i>
+            <p className="indent-4 block font-bold">{data.content}</p>
+            <p className="indent-4 mt-2 mb-4">{data.translation}</p>
+            <p className="text-right">{data.author}</p>
           </div>
         </div>
       )}

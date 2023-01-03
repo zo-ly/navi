@@ -30,7 +30,7 @@ const SearchBar: FC = () => {
   }
   return (
     <SearchBarContext.Provider value={{ currentEngine, setCurrentEngine }}>
-      <div className="relative max-w-xl my-0 mx-auto">
+      <div className="relative w-full max-w-xl my-0 mx-auto md:my-10">
         <SearchEngines />
         <div
           className={cx(
