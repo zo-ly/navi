@@ -6,6 +6,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [ ] 移动端响应式
 - [ ] 快捷访问
 - [ ] 可拖拽
+- [ ] 配置持久化
+- [ ] local storage with expire time
 - [ ] Dark mode
 - [ ] Deploy
 - [ ] Custom domain
