@@ -23,14 +23,16 @@ const Quotation: FC = () => {
   return (
     <div ref={parent} className="block md:inline-block text-sm font-mono">
       {data.content && (
-        <div className="relative m-0 pt-10 pb-6 text-slate-50 text-sm rounded-xl bg-gradient-to-r from-cyan-500 to-pink-500 bg-[length:400%_400%] animate-gradient">
-          <div className="px-4 max-w-md max-h-36 overflow-auto">
-            <i className="absolute top-3 left-3 font-serif font-bold text-4xl">
-              “
-            </i>
-            <p className="indent-4 block font-bold">{data.content}</p>
-            <p className="indent-4 mt-2 mb-4">{data.translation}</p>
-            <p className="text-right">{data.author}</p>
+        <div className="overflow-hidden relative max-w-md m-0 pt-8 pb-6 text-slate-50 text-sm rounded-xl bg-gradient-to-r from-cyan-500 to-pink-500 bg-[length:400%_400%] animate-gradient">
+          <div className="box-content pl-4 pr-5 w-full max-h-32 overflow-y-auto">
+            <div className="pr-6">
+              <i className="absolute top-3 left-3 font-serif font-bold text-3xl">
+                “
+              </i>
+              <p className="indent-4 block font-bold">{data.content}</p>
+              <p className="indent-4 mt-2 mb-3">{data.translation}</p>
+              <p className="text-right">{data.author}</p>
+            </div>
           </div>
         </div>
       )}
