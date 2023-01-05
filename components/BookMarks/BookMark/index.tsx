@@ -35,17 +35,17 @@ const BookMark: FC<BookMarkProps> = ({ icon, name }) => {
       >
         <div className="flex justify-center items-center p-0.5 rounded-full md:hover:bg-black/10">
           <Image
-            src="/edit.svg"
-            width={22}
-            height={22}
+            src="/setting.svg"
+            width={20}
+            height={20}
             alt="edit"
             className="md:scale-75"
           />
         </div>
         <Image
           src="/drag.svg"
-          width={22}
-          height={22}
+          width={20}
+          height={20}
           alt="drag"
           className="md:scale-75 cursor-grab"
         />
