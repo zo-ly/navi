@@ -5,9 +5,10 @@ import Image from 'next/image'
 interface BookMarkProps {
   icon: string
   name: string
+  onSetting?: () => void
 }
 
-const BookMark: FC<BookMarkProps> = ({ icon, name }) => {
+const BookMark: FC<BookMarkProps> = ({ icon, name, onSetting }) => {
   return (
     <div
       className={cx(
@@ -33,7 +34,10 @@ const BookMark: FC<BookMarkProps> = ({ icon, name }) => {
           'md:opacity-0 md:group-hover:opacity-100 md:group-hover:delay-500'
         )}
       >
-        <div className="flex justify-center items-center p-0.5 rounded-full md:hover:bg-black/10">
+        <div
+          className="flex justify-center items-center p-0.5 rounded-full md:hover:bg-black/10"
+          onClick={onSetting}
+        >
           <Image
             src="/setting.svg"
             width={20}

@@ -5,8 +5,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [x] 名言警句
 - [x] 响应式
 - [x] 快捷访问
-- [ ] 可拖拽
-- [ ] Edit Dialog
+- [x] Modal
+- [ ] Modal Editor / Footer
+- [ ] Draggable
 - [ ] 配置持久化
 - [ ] local storage with expire time
 - [ ] 获取链接 favicon
