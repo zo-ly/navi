@@ -1,5 +1,6 @@
 import { FC, useEffect } from 'react'
 import { useFadeState, useLockScroll } from '../../utils/hooks'
+import Footer from './Footer'
 
 interface ModalProps {
   open?: boolean
@@ -23,13 +24,16 @@ const Modal: FC<ModalProps> = ({ open, children, onClose }) => {
       >
         <div className="fixed inset-0 bg-black/50"></div>
         <div className="fixed h-full inset-0 flex justify-center items-center px-4">
-          <div className="relative w-full max-w-md bg-white rounded-lg p-4 overflow-hidden">
-            <i
-              onClick={onClose}
-              style={{ backgroundImage: 'url(/close.svg)' }}
-              className="absolute top-2 right-2 block w-6 h-6 bg-cover md:hover:bg-black/10 rounded-full"
-            />
-            {children}
+          <div className="relative w-full max-w-md bg-white rounded-lg overflow-hidden">
+            <div className="p-4">
+              <i
+                onClick={onClose}
+                style={{ backgroundImage: 'url(/close.svg)' }}
+                className="absolute cursor-pointer top-2 right-2 block w-6 h-6 bg-cover md:hover:bg-black/10 rounded-full"
+              />
+              {children}
+            </div>
+            <Footer />
           </div>
         </div>
       </div>
