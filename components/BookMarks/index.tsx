@@ -4,6 +4,7 @@ import { Inter } from '@next/font/google'
 import BookMark from './BookMark'
 import AddingBookMark from './AddingBookMark'
 import Modal from '../Modal'
+import Input from '../Input'
 
 const inter = Inter({ subsets: ['latin'] })
 const bookMarks = [
@@ -53,7 +54,12 @@ const BookMarks: FC = () => {
       </div>
       <Modal open={showModal} onClose={handleClose}>
         <div>
-          <h1>修改快捷方式</h1>
+          <h1 className="font-bold text-lg">修改快捷方式</h1>
+          <div className="mt-2">
+            {['请输入名称', '请输入网址'].map((key) => (
+              <Input key={key} label={key} />
+            ))}
+          </div>
         </div>
       </Modal>
     </>

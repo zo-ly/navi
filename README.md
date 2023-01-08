@@ -6,8 +6,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [x] 响应式
 - [x] 快捷访问
 - [x] Modal
-- [ ] Modal Editor / Footer
-- [ ] refer: https://uiverse.io/AbanoubMagdy1/afraid-yak-99 https://tailwindui.com/components/application-ui/overlays/modals
+- [x] Modal Editor / Footer
 - [ ] Draggable
 - [ ] 配置持久化
 - [ ] local storage with expire time

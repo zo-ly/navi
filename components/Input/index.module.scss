@@ -1,0 +1,28 @@
+.bar::after,
+.bar::before {
+  content: '';
+  position: absolute;
+  bottom: 1px;
+  height: 2px;
+  width: 0;
+  background: #5264AE;
+  transition: 0.2s ease all;
+}
+
+.input {
+  &:focus,
+  &:valid {
+    ~ .bar {
+      &::after,
+      &::before {
+        width: 50%
+      }
+    }
+
+    ~ label .char {
+      transform: translateY(-1.25rem);
+      font-size: 0.875rem;
+      color: #5264AE;
+    }
+  }
+}

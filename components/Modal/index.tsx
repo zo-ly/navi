@@ -25,15 +25,15 @@ const Modal: FC<ModalProps> = ({ open, children, onClose }) => {
         <div className="fixed inset-0 bg-black/50"></div>
         <div className="fixed h-full inset-0 flex justify-center items-center px-4">
           <div className="relative w-full max-w-md bg-white rounded-lg overflow-hidden">
-            <div className="p-4">
+            <div className="py-4 px-6">
               <i
                 onClick={onClose}
                 style={{ backgroundImage: 'url(/close.svg)' }}
-                className="absolute cursor-pointer top-2 right-2 block w-6 h-6 bg-cover md:hover:bg-black/10 rounded-full"
+                className="absolute cursor-pointer top-4 right-6 block w-6 h-6 bg-cover md:hover:bg-black/10 rounded-full"
               />
               {children}
             </div>
-            <Footer />
+            <Footer onCancel={onClose} />
           </div>
         </div>
       </div>
