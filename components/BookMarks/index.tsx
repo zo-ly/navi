@@ -1,67 +1,88 @@
-import { FC, useState } from 'react'
+import { FC, useCallback, useState } from 'react'
 import cx from 'classnames'
 import { Inter } from '@next/font/google'
 import BookMark from './BookMark'
 import AddingBookMark from './AddingBookMark'
-import Modal from '../Modal'
-import Input from '../Input'
+import { BookMarksContext, IBookMark } from './utils/context'
+import SettingModal, { ModalStatus } from './SettingModal'
 
 const inter = Inter({ subsets: ['latin'] })
-const bookMarks = [
-  {
-    favicon: 'https://google.com/favicon.ico',
-    name: 'Google',
-  },
-  {
-    favicon: 'https://baidu.com/favicon.ico',
-    name: '百度',
-  },
-]
 
 const BookMarks: FC = () => {
-  const [showModal, setShowModal] = useState(false)
-  const handleSetting = () => {
-    setShowModal(true)
-  }
+  const [bookMarks, setBookMarks] = useState<Array<IBookMark>>([])
+  const [editingId, setEditingId] = useState<string>()
+  const [modalStatus, setModalStatus] = useState<ModalStatus>(
+    ModalStatus.Closed
+  )
+  const handleSetting = useCallback(
+    (id: string) => () => {
+      setEditingId(id)
+      setModalStatus(ModalStatus.Edit)
+    },
+    []
+  )
 
-  const handleClose = () => {
-    setShowModal(false)
-  }
+  const handleClose = useCallback(() => {
+    setModalStatus(ModalStatus.Closed)
+  }, [])
+
+  const addBookMark = useCallback(() => {
+    setEditingId(undefined)
+    setModalStatus(ModalStatus.Create)
+  }, [])
+
+  const handleSettingConfirm = useCallback(
+    (data: IBookMark) => {
+      setBookMarks((pre) => {
+        if (modalStatus === ModalStatus.Create) {
+          return [...pre, data]
+        }
+
+        return pre.map((i) => (i.id === data.id ? data : i))
+      })
+      handleClose()
+    },
+    [handleClose, modalStatus]
+  )
+
+  const handleSettingRemove = useCallback(
+    (data: IBookMark) => {
+      setBookMarks((pre) => pre.filter((i) => i.id !== data.id))
+      handleClose()
+    },
+    [handleClose]
+  )
 
   return (
     <>
-      <div
-        className={cx(
-          inter.className,
-          'mt-8 w-full flex flex-col md:flex-row md:flex-wrap md:justify-center'
-        )}
-      >
-        {Array(3)
-          .fill(0)
-          .map(() =>
-            bookMarks.map(({ favicon, name }) => {
-              return (
-                <BookMark
-                  key={favicon}
-                  icon={favicon}
-                  name={name}
-                  onSetting={handleSetting}
-                />
-              )
-            })
+      <BookMarksContext.Provider value={{ bookMarks, setBookMarks }}>
+        <div
+          className={cx(
+            inter.className,
+            'mt-8 w-full flex flex-col md:flex-row md:flex-wrap md:justify-center'
           )}
-        <AddingBookMark />
-      </div>
-      <Modal open={showModal} onClose={handleClose}>
-        <div>
-          <h1 className="font-bold text-lg">修改快捷方式</h1>
-          <div className="mt-2">
-            {['请输入名称', '请输入网址'].map((key) => (
-              <Input key={key} label={key} />
-            ))}
-          </div>
+        >
+          {bookMarks.map(({ id, favicon, name, link }) => {
+            return (
+              <BookMark
+                key={id}
+                name={name}
+                link={link}
+                favicon={favicon}
+                onSetting={handleSetting(id)}
+              />
+            )
+          })}
+          <AddingBookMark onClick={addBookMark} />
         </div>
-      </Modal>
+      </BookMarksContext.Provider>
+      <SettingModal
+        status={modalStatus}
+        onClose={handleClose}
+        onConfirm={handleSettingConfirm}
+        onRemove={handleSettingRemove}
+        value={bookMarks.find((b) => editingId === b.id)}
+      />
     </>
   )
 }

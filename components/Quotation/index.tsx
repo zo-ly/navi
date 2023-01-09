@@ -9,8 +9,12 @@ const Quotation: FC = () => {
 
   const fetchData = async () => {
     try {
-      const response: QuoteRes = await (await fetch(QUOTA_API)).json()
-      setData(response)
+      const response = await fetch(QUOTA_API)
+      if (!response.ok) {
+        return
+      }
+      const result: QuoteRes = await response.json()
+      setData(result)
     } catch (e) {
       console.log(e)
     }

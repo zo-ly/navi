@@ -1,14 +1,13 @@
 import { FC } from 'react'
 import cx from 'classnames'
 import Image from 'next/image'
+import { IBookMark } from '../utils/context'
 
-interface BookMarkProps {
-  icon: string
-  name: string
+interface BookMarkProps extends Omit<IBookMark, 'id'> {
   onSetting?: () => void
 }
 
-const BookMark: FC<BookMarkProps> = ({ icon, name, onSetting }) => {
+const BookMark: FC<BookMarkProps> = ({ favicon, link, name, onSetting }) => {
   return (
     <div
       className={cx(
@@ -18,10 +17,16 @@ const BookMark: FC<BookMarkProps> = ({ icon, name, onSetting }) => {
       )}
     >
       <div className="w-12 h-12 rounded-full bg-white pt-3 pl-3 md:mx-auto">
-        <i
-          style={{ backgroundImage: `url(${icon})` }}
-          className="block w-6 h-6 bg-cover"
-        />
+        {favicon ? (
+          <i
+            style={{ backgroundImage: `url(${favicon})` }}
+            className="block w-6 h-6 bg-cover"
+          />
+        ) : (
+          <i className="block w-6 h-6 text-center">
+            {(name || link).split('')[0] || '🔖'}
+          </i>
+        )}
       </div>
       <div className="text-base flex-1 w-0 truncate mx-3 md:w-auto md:flex-none md:text-center md:text-xs md:mt-3">
         {name}

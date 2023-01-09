@@ -1,14 +1,22 @@
 import { FC, useEffect } from 'react'
 import { useFadeState, useLockScroll } from '../../utils/hooks'
-import Footer from './Footer'
+import Footer, { IFooter } from './Footer'
 
-interface ModalProps {
+export interface IModal extends Omit<IFooter, 'onCancel'> {
   open?: boolean
-  children?: React.ReactNode
   onClose?: () => void
+  children?: React.ReactNode
 }
 
-const Modal: FC<ModalProps> = ({ open, children, onClose }) => {
+const Modal: FC<IModal> = ({
+  open,
+  children,
+  onClose,
+  onConfirm,
+  onRemove,
+  deleteAllowed,
+  confirmDisabled,
+}) => {
   const [lock, unlock] = useLockScroll()
   const [display, opacity] = useFadeState(open)
 
@@ -33,7 +41,13 @@ const Modal: FC<ModalProps> = ({ open, children, onClose }) => {
               />
               {children}
             </div>
-            <Footer onCancel={onClose} />
+            <Footer
+              onConfirm={onConfirm}
+              onCancel={onClose}
+              onRemove={onRemove}
+              deleteAllowed={deleteAllowed}
+              confirmDisabled={confirmDisabled}
+            />
           </div>
         </div>
       </div>
