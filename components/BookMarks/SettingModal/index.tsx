@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, useCallback, useEffect, useState } from 'react'
 import Input from '../../Input'
 import Modal, { IModal } from '../../Modal'
-import { IBookMark } from '../utils/context'
+import { IBookMark } from '../interface'
 
 interface ISettingModal
   extends Omit<IModal, 'open' | 'onConfirm' | 'onRemove'> {
@@ -27,8 +27,8 @@ const SettingModal: FC<ISettingModal> = ({
   const [bookMark, setBookMark] = useState<IBookMark>()
 
   useEffect(() => {
-    setBookMark(value)
-  }, [value])
+    setBookMark(status === ModalStatus.Create ? undefined : value)
+  }, [value, status])
 
   const handleChange = useCallback(
     (key: 'name' | 'link') => (e: ChangeEvent<HTMLInputElement>) => {

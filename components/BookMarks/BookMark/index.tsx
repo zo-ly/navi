@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import cx from 'classnames'
 import Image from 'next/image'
-import { IBookMark } from '../utils/context'
+import { IBookMark } from '../interface'
 
 interface BookMarkProps extends Omit<IBookMark, 'id'> {
   onSetting?: () => void

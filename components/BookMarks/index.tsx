@@ -3,7 +3,7 @@ import cx from 'classnames'
 import { Inter } from '@next/font/google'
 import BookMark from './BookMark'
 import AddingBookMark from './AddingBookMark'
-import { BookMarksContext, IBookMark } from './utils/context'
+import { IBookMark } from './interface'
 import SettingModal, { ModalStatus } from './SettingModal'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -55,27 +55,25 @@ const BookMarks: FC = () => {
 
   return (
     <>
-      <BookMarksContext.Provider value={{ bookMarks, setBookMarks }}>
-        <div
-          className={cx(
-            inter.className,
-            'mt-8 w-full flex flex-col md:flex-row md:flex-wrap md:justify-center'
-          )}
-        >
-          {bookMarks.map(({ id, favicon, name, link }) => {
-            return (
-              <BookMark
-                key={id}
-                name={name}
-                link={link}
-                favicon={favicon}
-                onSetting={handleSetting(id)}
-              />
-            )
-          })}
-          <AddingBookMark onClick={addBookMark} />
-        </div>
-      </BookMarksContext.Provider>
+      <div
+        className={cx(
+          inter.className,
+          'mt-8 w-full flex flex-col md:flex-row md:flex-wrap md:justify-center'
+        )}
+      >
+        {bookMarks.map(({ id, favicon, name, link }) => {
+          return (
+            <BookMark
+              key={id}
+              name={name}
+              link={link}
+              favicon={favicon}
+              onSetting={handleSetting(id)}
+            />
+          )
+        })}
+        <AddingBookMark onClick={addBookMark} />
+      </div>
       <SettingModal
         status={modalStatus}
         onClose={handleClose}
