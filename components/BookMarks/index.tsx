@@ -11,38 +11,39 @@ const inter = Inter({ subsets: ['latin'] })
 const BookMarks: FC = () => {
   const [bookMarks, setBookMarks] = useState<Array<IBookMark>>([])
   const [editingId, setEditingId] = useState<string>()
-  const [modalStatus, setModalStatus] = useState<ModalStatus>(
-    ModalStatus.Closed
-  )
+  const [modalState, setModalState] = useState({
+    open: false,
+    status: ModalStatus.Create,
+  })
   const handleSetting = useCallback(
     (id: string) => () => {
       setEditingId(id)
-      setModalStatus(ModalStatus.Edit)
+      setModalState({ open: true, status: ModalStatus.Edit })
     },
     []
   )
 
   const handleClose = useCallback(() => {
-    setModalStatus(ModalStatus.Closed)
+    setModalState((pre) => ({ ...pre, open: false }))
   }, [])
 
   const addBookMark = useCallback(() => {
     setEditingId(undefined)
-    setModalStatus(ModalStatus.Create)
+    setModalState({ open: true, status: ModalStatus.Create })
   }, [])
 
   const handleSettingConfirm = useCallback(
     (data: IBookMark) => {
+      handleClose()
       setBookMarks((pre) => {
-        if (modalStatus === ModalStatus.Create) {
+        if (modalState.status === ModalStatus.Create) {
           return [...pre, data]
         }
 
         return pre.map((i) => (i.id === data.id ? data : i))
       })
-      handleClose()
     },
-    [handleClose, modalStatus]
+    [handleClose, modalState]
   )
 
   const handleSettingRemove = useCallback(
@@ -75,7 +76,8 @@ const BookMarks: FC = () => {
         <AddingBookMark onClick={addBookMark} />
       </div>
       <SettingModal
-        status={modalStatus}
+        open={modalState.open}
+        status={modalState.status}
         onClose={handleClose}
         onConfirm={handleSettingConfirm}
         onRemove={handleSettingRemove}

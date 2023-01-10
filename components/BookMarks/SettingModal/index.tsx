@@ -3,8 +3,7 @@ import Input from '../../Input'
 import Modal, { IModal } from '../../Modal'
 import { IBookMark } from '../interface'
 
-interface ISettingModal
-  extends Omit<IModal, 'open' | 'onConfirm' | 'onRemove'> {
+interface ISettingModal extends Omit<IModal, 'onConfirm' | 'onRemove'> {
   status: ModalStatus
   value?: IBookMark
   onConfirm?: (v: IBookMark) => void
@@ -14,10 +13,10 @@ interface ISettingModal
 export enum ModalStatus {
   Create,
   Edit,
-  Closed,
 }
 
 const SettingModal: FC<ISettingModal> = ({
+  open,
   value,
   status,
   onConfirm,
@@ -27,8 +26,9 @@ const SettingModal: FC<ISettingModal> = ({
   const [bookMark, setBookMark] = useState<IBookMark>()
 
   useEffect(() => {
-    setBookMark(status === ModalStatus.Create ? undefined : value)
-  }, [value, status])
+    if (!open) return
+    setBookMark(value)
+  }, [value, open])
 
   const handleChange = useCallback(
     (key: 'name' | 'link') => (e: ChangeEvent<HTMLInputElement>) => {
@@ -50,7 +50,7 @@ const SettingModal: FC<ISettingModal> = ({
 
   return (
     <Modal
-      open={status !== ModalStatus.Closed}
+      open={open}
       onClose={onClose}
       onConfirm={handleConfirm}
       onRemove={handleRemove}

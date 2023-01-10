@@ -28,7 +28,7 @@ const Input: FC<InputProps> = ({ value, label, onChange }) => {
           'relative block w-full before:left-1/2 after:right-1/2'
         )}
       ></span>
-      <label className="absolute text-lg text-neutral-400 pointer-events-none flex left-1 top-4">
+      <label className="absolute text-sm text-neutral-400 pointer-events-none flex left-1 top-4">
         {labelDisplay.map((l, idx) => (
           <span
             key={idx}
