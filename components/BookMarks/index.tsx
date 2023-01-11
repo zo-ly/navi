@@ -1,10 +1,10 @@
 import { FC, useCallback, useState } from 'react'
 import cx from 'classnames'
 import { Inter } from '@next/font/google'
-import BookMark from './BookMark'
 import AddingBookMark from './AddingBookMark'
 import { IBookMark } from './interface'
 import SettingModal, { ModalStatus } from './SettingModal'
+import SortableList from './SortableList'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -62,17 +62,11 @@ const BookMarks: FC = () => {
           'mt-8 w-full flex flex-col md:flex-row md:flex-wrap md:justify-center'
         )}
       >
-        {bookMarks.map(({ id, favicon, name, link }) => {
-          return (
-            <BookMark
-              key={id}
-              name={name}
-              link={link}
-              favicon={favicon}
-              onSetting={handleSetting(id)}
-            />
-          )
-        })}
+        <SortableList
+          bookMarks={bookMarks}
+          onDragEnd={setBookMarks}
+          onSetting={handleSetting}
+        />
         <AddingBookMark onClick={addBookMark} />
       </div>
       <SettingModal

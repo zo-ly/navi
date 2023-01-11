@@ -7,7 +7,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [x] 快捷访问
 - [x] Modal
 - [x] Modal Editor / Footer
-- [ ] Draggable
+- [x] Draggable
 - [ ] 配置持久化
 - [ ] local storage with expire time
 - [ ] 获取链接 favicon

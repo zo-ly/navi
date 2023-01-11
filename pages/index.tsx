@@ -12,7 +12,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="min-h-screen px-4 pt-8 pb-4 md:p-10 md:flex md:flex-col md:items-start">
+      <main className="min-h-screen max-w-full overflow-hidden px-4 pt-8 pb-4 md:p-10 md:flex md:flex-col md:items-start">
         <div className="min-h-[12rem] md:min-h-[14rem]">
           <Quotation />
         </div>
