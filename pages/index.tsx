@@ -1,9 +1,11 @@
+import { FC } from 'react'
 import Head from 'next/head'
+import { GetServerSideProps, GetServerSidePropsResult } from 'next'
 import SearchBar from '../components/SearchBar'
-import Quotation from '../components/Quotation'
+import Quotation, { IQuoteRes } from '../components/Quotation'
 import BookMarks from '../components/BookMarks'
 
-export default function Home() {
+const Home: FC<{ data: IQuoteRes }> = ({ data }) => {
   return (
     <>
       <Head>
@@ -13,10 +15,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="min-h-screen max-w-full overflow-hidden px-4 pt-8 pb-4 md:p-10 md:flex md:flex-col md:items-start">
-        <div className="min-h-[12rem] md:min-h-[14rem]">
-          <Quotation />
-        </div>
-        <div className="flex flex-col items-center w-full mt-4 max-w-xl mx-auto md:mt-2">
+        <Quotation quote={data} />
+        <div className="flex flex-col items-center w-full max-w-xl mx-auto">
           <SearchBar />
           <BookMarks />
         </div>
@@ -24,3 +24,21 @@ export default function Home() {
     </>
   )
 }
+
+export const getServerSideProps: GetServerSideProps<{
+  data: IQuoteRes
+}> = async (): Promise<GetServerSidePropsResult<{ data: IQuoteRes }>> => {
+  try {
+    const QUOTA_API = 'https://apiv3.shanbay.com/weapps/dailyquote/quote/'
+    const response = await fetch(QUOTA_API)
+    if (!response.ok) {
+      throw Error('Request Error')
+    }
+    const data: IQuoteRes = await response.json()
+    return { props: { data } }
+  } catch (e) {
+    return { props: { data: {} } }
+  }
+}
+
+export default Home
