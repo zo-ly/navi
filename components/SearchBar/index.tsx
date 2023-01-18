@@ -1,13 +1,25 @@
 import cx from 'classnames'
-import { FC, FormEvent, KeyboardEvent, useRef, useState } from 'react'
+import {
+  FC,
+  FormEvent,
+  KeyboardEvent,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import Image from 'next/image'
 import SearchEngines from './SearchEngines'
 import { SearchBarContext } from './utils/context'
-import { defaultEngine, enginesMenu, urlRegex } from './utils/constants'
+import { enginesMenu, urlRegex } from './utils/constants'
+import { getUsableEngine } from './utils/helper'
 
 const SearchBar: FC = () => {
-  const [currentEngine, setCurrentEngine] = useState(defaultEngine)
+  const [currentEngine, setCurrentEngine] = useState<string>()
   const inputText = useRef<string>()
+
+  useEffect(() => {
+    setCurrentEngine(getUsableEngine())
+  }, [])
 
   const handleInput = (e: FormEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement
@@ -15,7 +27,7 @@ const SearchBar: FC = () => {
   }
 
   const onSearch = () => {
-    if (!inputText.current) return
+    if (!inputText.current || !currentEngine) return
 
     const url = urlRegex.test(inputText.current)
       ? inputText.current
@@ -43,7 +55,10 @@ const SearchBar: FC = () => {
           <input
             type="text"
             className="flex-1 bg-white h-full pl-7 focus-visible:outline-none"
-            placeholder={`在 ${enginesMenu[currentEngine].label} 上搜索，或者输入一个网址`}
+            placeholder={
+              currentEngine &&
+              `在 ${enginesMenu[currentEngine].label} 上搜索，或者输入一个网址`
+            }
             onInput={handleInput}
             onKeyDown={handleKeyDown}
           />

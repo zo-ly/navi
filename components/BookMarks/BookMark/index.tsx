@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, MouseEvent, useCallback } from 'react'
 import cx from 'classnames'
 import Image from 'next/image'
 import { IBookMark } from '../interface'
@@ -29,9 +29,16 @@ const BookMark: FC<BookMarkProps> = ({
     transform: CSS.Transform.toString(transform),
     zIndex: isDragging ? 20 : 10,
   }
+  const handleAClick = useCallback(
+    (e: MouseEvent) => {
+      window.open(link, e.metaKey || e.ctrlKey ? '_blank' : '_self')
+    },
+    [link]
+  )
   return (
     <div ref={setNodeRef} style={style} {...attributes}>
-      <div
+      <a
+        onClick={handleAClick}
         className={cx(
           'touch-manipulation',
           'relative transition group cursor-pointer',
@@ -61,6 +68,10 @@ const BookMark: FC<BookMarkProps> = ({
             'md:h-auto md:absolute md:top-2 md:left-0 md:w-full md:flex-row-reverse md:px-1',
             'md:opacity-0 md:group-hover:opacity-100 md:group-hover:delay-500'
           )}
+          onClick={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+          }}
         >
           <div
             className="flex justify-center items-center p-0.5 rounded-full md:hover:bg-black/10"
@@ -83,7 +94,7 @@ const BookMark: FC<BookMarkProps> = ({
             {...listeners}
           />
         </div>
-      </div>
+      </a>
     </div>
   )
 }

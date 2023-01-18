@@ -1,11 +1,11 @@
 import Image from 'next/image'
-import { FC, useContext, useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { enginesMenu } from '../utils/constants'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
-import { SearchBarContext } from '../utils/context'
+import { useAvailableContext } from '../utils/helper'
 
 const SearchEngines: FC = () => {
-  const { currentEngine, setCurrentEngine } = useContext(SearchBarContext)
+  const { currentEngine, setCurrentEngine } = useAvailableContext()
   const [showMenu, setShowMenu] = useState(false)
   const [parent] = useAutoAnimate<HTMLDivElement>()
 
@@ -35,17 +35,19 @@ const SearchEngines: FC = () => {
       ref={parent}
       className="absolute top-0 h-full"
     >
-      <div
-        onClick={onMenuTrigger}
-        className="cursor-pointer select-none h-full pl-3.5 flex items-center"
-      >
-        <Image
-          width={20}
-          height={20}
-          alt="logo"
-          src={enginesMenu[currentEngine].icon}
-        />
-      </div>
+      {currentEngine && (
+        <div
+          onClick={onMenuTrigger}
+          className="cursor-pointer select-none h-full pl-3.5 flex items-center"
+        >
+          <Image
+            width={20}
+            height={20}
+            alt="logo"
+            src={enginesMenu[currentEngine].icon}
+          />
+        </div>
+      )}
       {showMenu && (
         <div className="absolute z-10 top-0 md:bottom-auto left-0 text-slate-800 bg-white rounded-3xl shadow-md overflow-hidden">
           {Object.entries(enginesMenu)

@@ -1,20 +1,55 @@
-import { FC, useCallback, useState } from 'react'
+import { FC, useCallback, useEffect, useRef, useState } from 'react'
 import cx from 'classnames'
 import { Inter } from '@next/font/google'
 import AddingBookMark from './AddingBookMark'
 import { IBookMark } from './interface'
-import SettingModal, { ModalStatus } from './SettingModal'
+import SettingModal from './SettingModal'
 import SortableList from './SortableList'
+import { getStorage, setStorage } from './helper'
+import axios from 'axios'
+import { IApiFaviconRes } from '../../pages/api/favicon'
 
 const inter = Inter({ subsets: ['latin'] })
 
+enum ModalStatus {
+  Create,
+  Edit,
+}
+
+const createBookMark = async (
+  bookMark: Omit<IBookMark, 'id'>
+): Promise<IBookMark> => {
+  const id = String(Date.now())
+  try {
+    const { data } = await axios.get<IApiFaviconRes>('/api/favicon', {
+      params: { domain: bookMark.link, sz: 32 },
+    })
+    return { ...bookMark, id, favicon: data.faviconB64 }
+  } catch (e) {
+    return { ...bookMark, id }
+  }
+}
+
 const BookMarks: FC = () => {
+  const enableCache = useRef(false)
   const [bookMarks, setBookMarks] = useState<Array<IBookMark>>([])
   const [editingId, setEditingId] = useState<string>()
   const [modalState, setModalState] = useState({
     open: false,
     status: ModalStatus.Create,
   })
+
+  useEffect(() => {
+    const bookMarks = getStorage() || []
+    setBookMarks(bookMarks)
+    setTimeout(() => (enableCache.current = true))
+  }, [])
+
+  useEffect(() => {
+    if (!enableCache.current) return
+    setStorage(bookMarks)
+  }, [bookMarks])
+
   const handleSetting = useCallback(
     (id: string) => () => {
       setEditingId(id)
@@ -32,18 +67,21 @@ const BookMarks: FC = () => {
     setModalState({ open: true, status: ModalStatus.Create })
   }, [])
 
+  const handleCreateBookMark = useCallback(async (data: IBookMark) => {
+    const bookMark = await createBookMark(data)
+    setBookMarks((pre) => [...pre, bookMark])
+  }, [])
+
   const handleSettingConfirm = useCallback(
     (data: IBookMark) => {
       handleClose()
-      setBookMarks((pre) => {
-        if (modalState.status === ModalStatus.Create) {
-          return [...pre, data]
-        }
-
-        return pre.map((i) => (i.id === data.id ? data : i))
-      })
+      if (modalState.status === ModalStatus.Create) {
+        handleCreateBookMark(data)
+        return
+      }
+      setBookMarks((pre) => pre.map((i) => (i.id === data.id ? data : i)))
     },
-    [handleClose, modalState]
+    [handleClose, handleCreateBookMark, modalState.status]
   )
 
   const handleSettingRemove = useCallback(
@@ -71,7 +109,9 @@ const BookMarks: FC = () => {
       </div>
       <SettingModal
         open={modalState.open}
-        status={modalState.status}
+        title={`${
+          modalState.status === ModalStatus.Create ? '添加' : '修改'
+        }快捷方式`}
         onClose={handleClose}
         onConfirm={handleSettingConfirm}
         onRemove={handleSettingRemove}

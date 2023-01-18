@@ -4,6 +4,7 @@ import { GetServerSideProps, GetServerSidePropsResult } from 'next'
 import SearchBar from '../components/SearchBar'
 import Quotation, { IQuoteRes } from '../components/Quotation'
 import BookMarks from '../components/BookMarks'
+import axios from 'axios'
 
 const Home: FC<{ data: IQuoteRes }> = ({ data }) => {
   return (
@@ -30,11 +31,7 @@ export const getServerSideProps: GetServerSideProps<{
 }> = async (): Promise<GetServerSidePropsResult<{ data: IQuoteRes }>> => {
   try {
     const QUOTA_API = 'https://apiv3.shanbay.com/weapps/dailyquote/quote/'
-    const response = await fetch(QUOTA_API)
-    if (!response.ok) {
-      throw Error('Request Error')
-    }
-    const data: IQuoteRes = await response.json()
+    const { data } = await axios.get<IQuoteRes>(QUOTA_API)
     return { props: { data } }
   } catch (e) {
     return { props: { data: {} } }

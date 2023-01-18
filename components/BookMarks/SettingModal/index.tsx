@@ -1,24 +1,26 @@
-import { ChangeEvent, FC, useCallback, useEffect, useState } from 'react'
+import {
+  ChangeEvent,
+  FC,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react'
 import Input from '../../Input'
 import Modal, { IModal } from '../../Modal'
 import { IBookMark } from '../interface'
 
 interface ISettingModal extends Omit<IModal, 'onConfirm' | 'onRemove'> {
-  status: ModalStatus
+  title?: ReactNode
   value?: IBookMark
   onConfirm?: (v: IBookMark) => void
   onRemove?: (v: IBookMark) => void
 }
 
-export enum ModalStatus {
-  Create,
-  Edit,
-}
-
 const SettingModal: FC<ISettingModal> = ({
   open,
+  title,
   value,
-  status,
   onConfirm,
   onRemove,
   onClose,
@@ -37,11 +39,10 @@ const SettingModal: FC<ISettingModal> = ({
     []
   )
 
-  const handleConfirm = useCallback(() => {
+  const handleConfirm = useCallback(async () => {
     if (!bookMark?.link) return
-    const id = status === ModalStatus.Create ? String(Date.now()) : bookMark.id
-    onConfirm?.({ ...bookMark, id })
-  }, [bookMark, onConfirm, status])
+    onConfirm?.(bookMark)
+  }, [bookMark, onConfirm])
 
   const handleRemove = useCallback(() => {
     if (!bookMark?.id) return
@@ -58,9 +59,7 @@ const SettingModal: FC<ISettingModal> = ({
       confirmDisabled={!bookMark?.link}
     >
       <div>
-        <h1 className="font-bold text-lg">
-          {status === ModalStatus.Create ? '添加' : '修改'}快捷方式
-        </h1>
+        <h1 className="font-bold text-lg">{title}</h1>
         <div className="mt-2">
           {LABEL_GROUP.map(({ key, name }) => (
             <Input
