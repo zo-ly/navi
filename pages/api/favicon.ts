@@ -1,13 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios, { AxiosError } from 'axios'
 
-export type IApiFaviconRes = {
-  faviconB64: string
-}
-
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<IApiFaviconRes | unknown>
+  res: NextApiResponse<unknown>
 ) {
   try {
     const { query } = req
@@ -15,8 +11,7 @@ export default async function handler(
       params: query,
       responseType: 'arraybuffer',
     })
-    const returnedB64 = Buffer.from(data).toString('base64')
-    res.status(200).json({ faviconB64: `data:image/png;base64,${returnedB64}` })
+    res.setHeader('Content-Type', 'image/jpeg').send(Buffer.from(data))
   } catch (e) {
     const { status, response } = e as AxiosError
     res.status(status || 500).send(response?.data)

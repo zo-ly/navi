@@ -40,14 +40,13 @@ const SortableList: FC<ISortable> = ({ bookMarks, onDragEnd, onSetting }) => {
       onDragEnd={handleDragEnd}
     >
       <SortableContext items={bookMarks}>
-        {bookMarks.map(({ id, favicon, name, link }) => {
+        {bookMarks.map(({ id, name, link }) => {
           return (
             <BookMark
               id={id}
               key={id}
               name={name}
               link={link}
-              favicon={favicon}
               onSetting={onSetting(id)}
             />
           )

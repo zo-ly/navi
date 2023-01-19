@@ -1,4 +1,4 @@
-import { FC, MouseEvent, useCallback } from 'react'
+import { FC, MouseEvent, useCallback, useState } from 'react'
 import cx from 'classnames'
 import Image from 'next/image'
 import { IBookMark } from '../interface'
@@ -9,13 +9,8 @@ interface BookMarkProps extends IBookMark {
   onSetting?: () => void
 }
 
-const BookMark: FC<BookMarkProps> = ({
-  favicon,
-  id,
-  link,
-  name,
-  onSetting,
-}) => {
+const BookMark: FC<BookMarkProps> = ({ id, link, name, onSetting }) => {
+  const [imgError, setImgError] = useState(false)
   const {
     attributes,
     isDragging,
@@ -46,16 +41,18 @@ const BookMark: FC<BookMarkProps> = ({
           'md:bg-transparent md:flex-col md:justify-center md:mb-0 md:w-28 md:h-28 md:hover:bg-white/10'
         )}
       >
-        <div className="w-12 h-12 rounded-full bg-white pt-3 pl-3 md:mx-auto">
-          {favicon ? (
-            <i
-              style={{ backgroundImage: `url(${favicon})` }}
-              className="block w-6 h-6 bg-cover"
-            />
+        <div className="w-12 h-12 rounded-full bg-white flex justify-center items-center md:mx-auto">
+          {imgError ? (
+            <i className="text-center text-3xl">{'🔖'}</i>
           ) : (
-            <i className="block w-6 h-6 text-center">
-              {(name || link).split('')[0] || '🔖'}
-            </i>
+            <Image
+              unoptimized
+              alt="icon"
+              width={24}
+              height={24}
+              src={`/api/favicon?domain=${link}&sz=32`}
+              onError={() => setImgError(true)}
+            />
           )}
         </div>
         <div className="text-base flex-1 w-0 truncate mx-3 md:w-auto md:flex-none md:text-center md:text-xs md:mt-3">

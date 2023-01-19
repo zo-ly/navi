@@ -6,8 +6,6 @@ import { IBookMark } from './interface'
 import SettingModal from './SettingModal'
 import SortableList from './SortableList'
 import { getStorage, setStorage } from './helper'
-import axios from 'axios'
-import { IApiFaviconRes } from '../../pages/api/favicon'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,18 +14,8 @@ enum ModalStatus {
   Edit,
 }
 
-const createBookMark = async (
-  bookMark: Omit<IBookMark, 'id'>
-): Promise<IBookMark> => {
-  const id = String(Date.now())
-  try {
-    const { data } = await axios.get<IApiFaviconRes>('/api/favicon', {
-      params: { domain: bookMark.link, sz: 32 },
-    })
-    return { ...bookMark, id, favicon: data.faviconB64 }
-  } catch (e) {
-    return { ...bookMark, id }
-  }
+const createBookMark = (bookMark: Omit<IBookMark, 'id'>): IBookMark => {
+  return { ...bookMark, id: String(Date.now()) }
 }
 
 const BookMarks: FC = () => {

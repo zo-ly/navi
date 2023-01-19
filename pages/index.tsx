@@ -30,8 +30,8 @@ export const getServerSideProps: GetServerSideProps<{
   data: IQuoteRes
 }> = async (): Promise<GetServerSidePropsResult<{ data: IQuoteRes }>> => {
   try {
-    const QUOTA_API = 'https://apiv3.shanbay.com/weapps/dailyquote/quote/'
-    const { data } = await axios.get<IQuoteRes>(QUOTA_API)
+    const QUOTE_URI = 'https://apiv3.shanbay.com/weapps/dailyquote/quote/'
+    const { data } = await axios.get<IQuoteRes>(QUOTE_URI)
     return { props: { data } }
   } catch (e) {
     return { props: { data: {} } }
