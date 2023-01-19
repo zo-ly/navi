@@ -10,8 +10,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [x] Draggable
 - [x] 配置持久化
 - [x] 获取链接 favicon
-- [ ] Deploy
-- [ ] Custom domain
+- [x] Deploy
+- [x] Custom domain
 - [ ] improve page style
 - [ ] Dark mode
 
