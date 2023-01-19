@@ -50,7 +50,7 @@ const BookMark: FC<BookMarkProps> = ({ id, link, name, onSetting }) => {
               alt="icon"
               width={24}
               height={24}
-              src={`/api/favicon?domain=${link}&sz=32`}
+              src={`/api/favicon?domain=${link}&sz=64`}
               onError={() => setImgError(true)}
             />
           )}

@@ -33,7 +33,7 @@ const SearchEngines: FC = () => {
         e.preventDefault()
       }}
       ref={parent}
-      className="absolute top-0 h-full"
+      className="absolute z-20 top-0 h-full"
     >
       {currentEngine && (
         <div
