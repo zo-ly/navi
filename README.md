@@ -12,8 +12,8 @@
 - [x] 获取链接 favicon
 - [x] Deploy
 - [x] Custom domain
-- [ ] form validate
-- [ ] improve page style
+- [x] form validate
+- [ ] improve page style 可以参考 [Dribble](https://dribbble.com/shots/12270143-Interaction-37-Persistent-Bottom-Nav-Bar)
 - [ ] Dark mode
 
 ## Getting Started

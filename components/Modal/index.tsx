@@ -1,22 +1,14 @@
-import { FC, useEffect } from 'react'
+import React, { FC, useEffect } from 'react'
 import { useFadeState, useLockScroll } from '../../utils/hooks'
-import Footer, { IFooter } from './Footer'
 
-export interface IModal extends Omit<IFooter, 'onCancel'> {
+export interface IModal {
   open?: boolean
-  onClose?: () => void
   children?: React.ReactNode
+  footer?: React.ReactNode
+  onClose?: () => void
 }
 
-const Modal: FC<IModal> = ({
-  open,
-  children,
-  onClose,
-  onConfirm,
-  onRemove,
-  deleteAllowed,
-  confirmDisabled,
-}) => {
+const Modal: FC<IModal> = ({ open, footer, children, onClose }) => {
   const [lock, unlock] = useLockScroll()
   const [display, opacity] = useFadeState(open)
 
@@ -34,20 +26,16 @@ const Modal: FC<IModal> = ({
         <div className="fixed h-full inset-0 flex justify-center items-center px-4">
           <div className="relative w-full max-w-md bg-white rounded-lg overflow-hidden">
             <div className="py-4 px-6">
-              <i
-                onClick={onClose}
-                style={{ backgroundImage: 'url(/close.svg)' }}
-                className="absolute cursor-pointer top-4 right-6 block w-6 h-6 bg-cover md:hover:bg-black/10 rounded-full"
-              />
+              <span className="absolute cursor-pointer top-3 right-3 p-1 md:hover:bg-black/10 rounded-full">
+                <i
+                  onClick={onClose}
+                  style={{ backgroundImage: 'url(/close.svg)' }}
+                  className="block w-6 h-6 bg-cover"
+                />
+              </span>
               {children}
             </div>
-            <Footer
-              onConfirm={onConfirm}
-              onCancel={onClose}
-              onRemove={onRemove}
-              deleteAllowed={deleteAllowed}
-              confirmDisabled={confirmDisabled}
-            />
+            {footer}
           </div>
         </div>
       </div>

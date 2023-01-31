@@ -1,20 +1,20 @@
-import {
-  ChangeEvent,
-  FC,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react'
+import { FC, ReactNode, useCallback, useEffect } from 'react'
+import { useForm, FormProvider, Controller } from 'react-hook-form'
 import Input from '../../Input'
 import Modal, { IModal } from '../../Modal'
 import { IBookMark } from '../interface'
+import { FORM_KEY, LABEL_GROUP } from './constants'
+import SettingFooter from './SettingFooter'
 
 interface ISettingModal extends Omit<IModal, 'onConfirm' | 'onRemove'> {
   title?: ReactNode
   value?: IBookMark
   onConfirm?: (v: IBookMark) => void
   onRemove?: (v: IBookMark) => void
+}
+
+export interface IFormBookMark {
+  [FORM_KEY]?: IBookMark
 }
 
 const SettingModal: FC<ISettingModal> = ({
@@ -25,65 +25,65 @@ const SettingModal: FC<ISettingModal> = ({
   onRemove,
   onClose,
 }) => {
-  const [bookMark, setBookMark] = useState<IBookMark>()
+  const methods = useForm<IFormBookMark>({
+    mode: 'onChange',
+    defaultValues: { bookMark: { name: '', link: '' } },
+  })
+  const { setValue, handleSubmit, clearErrors, reset } = methods
 
   useEffect(() => {
     if (!open) return
-    setBookMark(value)
-  }, [value, open])
+    clearErrors()
+    value ? setValue(FORM_KEY, value) : reset()
+  }, [value, open, setValue, clearErrors, reset])
 
-  const handleChange = useCallback(
-    (key: 'name' | 'link') => (e: ChangeEvent<HTMLInputElement>) => {
-      setBookMark((pre) => ({ ...pre!, [key]: e.target.value }))
+  const onSubmit = useCallback(
+    async (data: IFormBookMark) => {
+      if (!data.bookMark?.link) return
+      onConfirm?.(data.bookMark)
     },
-    []
+    [onConfirm]
   )
-
-  const handleConfirm = useCallback(async () => {
-    if (!bookMark?.link) return
-    onConfirm?.(bookMark)
-  }, [bookMark, onConfirm])
 
   const handleRemove = useCallback(() => {
-    if (!bookMark?.id) return
-    onRemove?.(bookMark)
-  }, [bookMark, onRemove])
+    if (!value?.id) return
+    onRemove?.(value)
+  }, [onRemove, value])
 
   return (
-    <Modal
-      open={open}
-      onClose={onClose}
-      onConfirm={handleConfirm}
-      onRemove={handleRemove}
-      deleteAllowed={!!bookMark?.id}
-      confirmDisabled={!bookMark?.link}
-    >
-      <div>
-        <h1 className="font-bold text-lg">{title}</h1>
-        <div className="mt-2">
-          {LABEL_GROUP.map(({ key, name }) => (
-            <Input
-              key={key}
-              label={name}
-              value={bookMark?.[key] || ''}
-              onChange={handleChange(key)}
-            />
-          ))}
+    <FormProvider {...methods}>
+      <Modal
+        open={open}
+        onClose={onClose}
+        footer={
+          <SettingFooter
+            onConfirm={handleSubmit(onSubmit)}
+            onRemove={handleRemove}
+            onCancel={onClose}
+            deleteAllowed={!!value?.id}
+          />
+        }
+      >
+        <div>
+          <h1 className="font-bold text-lg">{title}</h1>
+          <div className="mt-2">
+            {LABEL_GROUP.map(({ label, name, rules }) => (
+              <Controller
+                key={name}
+                rules={rules}
+                name={`${FORM_KEY}.${name}`}
+                render={({ field, fieldState }) => {
+                  return (
+                    <Input {...field} error={fieldState.error} label={label} />
+                  )
+                }}
+              />
+            ))}
+          </div>
         </div>
-      </div>
-    </Modal>
+      </Modal>
+    </FormProvider>
   )
 }
-
-const LABEL_GROUP: Array<{ name: string; key: 'name' | 'link' }> = [
-  {
-    name: '输入书签名称',
-    key: 'name',
-  },
-  {
-    name: '输入书签网址',
-    key: 'link',
-  },
-]
 
 export default SettingModal

@@ -16,7 +16,7 @@ const AddingBookMark: FC<Props> = ({ onClick }) => {
           className="block w-6 h-6 bg-cover"
         />
       </div>
-      <div className="text-base mx-3 md:w-auto md:flex-none md:text-center md:text-xs md:mt-3">
+      <div className="text-base text-slate-900 dark:md:text-slate-200 mx-3 md:w-auto md:flex-none md:text-center md:text-xs md:mt-3">
         添加快捷方式
       </div>
     </div>

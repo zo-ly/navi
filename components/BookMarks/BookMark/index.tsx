@@ -55,7 +55,7 @@ const BookMark: FC<BookMarkProps> = ({ id, link, name, onSetting }) => {
             />
           )}
         </div>
-        <div className="text-base flex-1 w-0 truncate mx-3 md:w-auto md:flex-none md:text-center md:text-xs md:mt-3">
+        <div className="text-base text-slate-900 dark:md:text-slate-200 flex-1 w-0 truncate mx-3 md:w-auto md:flex-none md:text-center md:text-xs md:mt-3">
           {name}
         </div>
         <div
