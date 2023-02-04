@@ -7,7 +7,7 @@ const Home: FC = () => {
 
   return (
     <div className="relative min-h-[87vh] md:min-h-[96vh] max-w-full">
-      <Quotation show={showQuote} onClick={() => setShowQuote(true)} />
+      <Quotation show={showQuote} onClick={() => setShowQuote((pre) => !pre)} />
       <Content onClick={() => setShowQuote(false)} />
     </div>
   )

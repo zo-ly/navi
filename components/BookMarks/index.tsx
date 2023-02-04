@@ -78,7 +78,7 @@ const BookMarks: FC = () => {
 
   return (
     <>
-      <div className="mt-8 w-full flex flex-col md:flex-row md:flex-wrap md:justify-center">
+      <div className="w-full flex flex-col md:flex-row md:flex-wrap md:justify-center">
         <SortableList
           bookMarks={bookMarks}
           onDragEnd={setBookMarks}
