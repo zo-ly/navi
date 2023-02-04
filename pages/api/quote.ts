@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import getFavicon from '../../lib/getFavicon'
+import getQuote from '../../lib/getQuote'
 
 export default async function handler(
   req: NextApiRequest,
@@ -7,7 +7,7 @@ export default async function handler(
 ) {
   switch (req.method) {
     case 'GET':
-      return getFavicon(req, res)
+      return getQuote(req, res)
     default:
       return res.status(400).json({ message: 'Invalid method.' })
   }

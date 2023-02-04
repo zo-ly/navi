@@ -13,8 +13,8 @@
 - [x] Deploy
 - [x] Custom domain
 - [x] form validate
-- [ ] improve page style 参考 [Dribble](https://dribbble.com/shots/12270143-Interaction-37-Persistent-Bottom-Nav-Bar)
-- [ ] Dark mode
+- [x] improve page style 参考 [Dribble](https://dribbble.com/shots/12270143-Interaction-37-Persistent-Bottom-Nav-Bar)
+- [x] Dark mode
 
 ## Getting Started
 

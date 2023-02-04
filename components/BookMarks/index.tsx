@@ -1,13 +1,9 @@
 import { FC, useCallback, useEffect, useRef, useState } from 'react'
-import cx from 'classnames'
-import { Inter } from '@next/font/google'
 import AddingBookMark from './AddingBookMark'
 import { IBookMark } from './interface'
 import SettingModal from './SettingModal'
 import SortableList from './SortableList'
 import { getStorage, setStorage } from './helper'
-
-const inter = Inter({ subsets: ['latin'] })
 
 enum ModalStatus {
   Create,
@@ -82,12 +78,7 @@ const BookMarks: FC = () => {
 
   return (
     <>
-      <div
-        className={cx(
-          inter.className,
-          'mt-8 w-full flex flex-col md:flex-row md:flex-wrap md:justify-center'
-        )}
-      >
+      <div className="mt-8 w-full flex flex-col md:flex-row md:flex-wrap md:justify-center">
         <SortableList
           bookMarks={bookMarks}
           onDragEnd={setBookMarks}
