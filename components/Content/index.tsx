@@ -19,7 +19,7 @@ const Content: FC<IProps> = ({ zIndex, onClick }) => {
     <div
       style={{ zIndex }}
       onClick={onClick}
-      className="absolute z-[1] inset-6 md:inset-7 right-0 flex flex-col items-center mx-auto pt-4 pb-8 bg-slate-100 dark:bg-slate-800 shadow-md rounded-lg"
+      className="relative z-[1] min-h-[83vh] md:min-h-[93vh] flex flex-col items-center pt-4 pb-8 bg-slate-100 dark:bg-slate-800 shadow-md rounded-lg"
     >
       <h1 className="text-5xl my-20 flex justify-center items-center">
         <span className={cx(dancingS.className, 'mr-5 font-bold')}>
@@ -30,7 +30,7 @@ const Content: FC<IProps> = ({ zIndex, onClick }) => {
       <div className="w-full max-w-xl px-4">
         <SearchBar />
       </div>
-      <div className="w-full flex-1 overflow-auto px-4 mt-8">
+      <div className="w-full px-4 mt-8 mx-auto md:max-w-[38rem]">
         <BookMarks />
       </div>
     </div>

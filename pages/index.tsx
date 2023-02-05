@@ -6,7 +6,7 @@ const Home: FC = () => {
   const [showQuote, setShowQuote] = useState(false)
 
   return (
-    <div className="relative pt-2 min-h-[87vh] md:min-h-[96vh] max-w-full">
+    <div className="min-h-[83vh] md:min-h-screen py-6 pl-6 max-w-full">
       <Quotation show={showQuote} onClick={() => setShowQuote((pre) => !pre)} />
       <Content onClick={() => setShowQuote(false)} />
     </div>
