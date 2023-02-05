@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import axios, { AxiosError } from 'axios'
+import axios from 'axios'
 
 export default async function getFavicon(
   req: NextApiRequest,
@@ -13,7 +13,6 @@ export default async function getFavicon(
     })
     res.setHeader('Content-Type', 'image/jpeg').send(Buffer.from(data))
   } catch (e) {
-    const { status, response } = e as AxiosError
-    res.status(status || 500).send(response?.data)
+    res.status(404).send(null)
   }
 }

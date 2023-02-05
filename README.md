@@ -15,8 +15,7 @@
 - [x] form validate
 - [x] improve page style 参考 [Dribble](https://dribbble.com/shots/12270143-Interaction-37-Persistent-Bottom-Nav-Bar)
 - [x] Dark mode
-- [ ] 中文翻译的字族
-- [ ] 考虑 quote loading 效果
+- [x] 考虑 quote loading 效果
 
 ## Getting Started
 

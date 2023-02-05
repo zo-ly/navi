@@ -1,4 +1,4 @@
-import { FC, MouseEvent, useCallback, useState } from 'react'
+import { FC, MouseEvent, useCallback, useRef, useState } from 'react'
 import cx from 'classnames'
 import Image from 'next/image'
 import { IBookMark } from '../interface'
@@ -10,7 +10,8 @@ interface BookMarkProps extends IBookMark {
 }
 
 const BookMark: FC<BookMarkProps> = ({ id, link, name, onSetting }) => {
-  const [imgError, setImgError] = useState(false)
+  const imgRef = useRef<HTMLImageElement>(null)
+  const [errorOrLoading, setErrorOrLoading] = useState(true)
   const {
     attributes,
     isDragging,
@@ -30,6 +31,11 @@ const BookMark: FC<BookMarkProps> = ({ id, link, name, onSetting }) => {
     },
     [link]
   )
+
+  const handleImgLoad = useCallback(() => {
+    setErrorOrLoading(false)
+  }, [])
+
   return (
     <div ref={setNodeRef} style={style} {...attributes}>
       <a
@@ -37,23 +43,23 @@ const BookMark: FC<BookMarkProps> = ({ id, link, name, onSetting }) => {
         className={cx(
           'touch-manipulation',
           'relative transition group cursor-pointer',
-          'bg-gray-100 rounded-lg flex items-center mb-3 px-3 h-20',
-          'md:bg-transparent md:flex-col md:justify-center md:mb-0 md:w-28 md:h-28 md:hover:bg-white/10'
+          'flex items-center mb-3 px-3 h-20 border-b-2 border-sky-400 border-dashed',
+          'md:border-none md:bg-white md:rounded-lg md:bg-transparent md:flex-col md:justify-center md:mb-0 md:w-28 md:h-28 md:hover:bg-black/5'
         )}
       >
         <div className="w-12 h-12 rounded-full bg-white flex justify-center items-center md:mx-auto">
-          {imgError ? (
-            <i className="text-center text-3xl">{'🔖'}</i>
-          ) : (
-            <Image
-              unoptimized
-              alt="icon"
-              width={24}
-              height={24}
-              src={`/api/favicon?domain=${link}&sz=64`}
-              onError={() => setImgError(true)}
-            />
-          )}
+          {errorOrLoading && <i className="text-center text-3xl">{'🔖'}</i>}
+          {/*  eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            style={{ display: errorOrLoading ? 'none' : 'block' }}
+            ref={imgRef}
+            alt="icon"
+            width={24}
+            height={24}
+            src={`/api/favicon?domain=${link}&sz=64`}
+            onLoad={handleImgLoad}
+            onError={() => setErrorOrLoading(true)}
+          />
         </div>
         <div className="text-base text-slate-900 dark:md:text-slate-200 flex-1 w-0 truncate mx-3 md:w-auto md:flex-none md:text-center md:text-xs md:mt-3">
           {name}

@@ -15,6 +15,7 @@ import { getUsableEngine } from './utils/helper'
 
 const SearchBar: FC = () => {
   const [currentEngine, setCurrentEngine] = useState<string>()
+  const [focusing, setFocusing] = useState(false)
   const inputText = useRef<string>()
 
   useEffect(() => {
@@ -42,25 +43,28 @@ const SearchBar: FC = () => {
   }
   return (
     <SearchBarContext.Provider value={{ currentEngine, setCurrentEngine }}>
-      <div className="relative w-full">
+      <div className={cx('relative w-full group', { focusing })}>
         <SearchEngines />
         <div
           className={cx(
             'flex justify-between items-center',
-            'w-full px-3.5 h-11 overflow-hidden',
+            'w-full px-3.5 h-11 overflow-hidden transition-all duration-300',
             'bg-white text-slate-800 border border-gray-200 border-solid rounded-3xl',
-            'hover:shadow-md hover:border-gray-50 focus:shadow-md focus:border-gray-50'
+            'hover:shadow-md hover:border-gray-50 focus:shadow-md focus:border-gray-50',
+            'group-[.focusing]:shadow-md group-[.focusing]:border-gray-50'
           )}
         >
           <input
             type="text"
             className="flex-1 bg-white h-full pl-7 focus-visible:outline-none"
+            onInput={handleInput}
+            onKeyDown={handleKeyDown}
+            onFocus={() => setFocusing(true)}
+            onBlur={() => setFocusing(false)}
             placeholder={
               currentEngine &&
               `在 ${enginesMenu[currentEngine].label} 上搜索，或者输入一个网址`
             }
-            onInput={handleInput}
-            onKeyDown={handleKeyDown}
           />
           <div className="cursor-pointer" onClick={onSearch}>
             <Image src="/search.svg" width={20} height={20} alt="search" />
