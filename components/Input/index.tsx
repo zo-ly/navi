@@ -34,7 +34,7 @@ const Input: FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
           onFocus={() => setFocused(true)}
           className={cx(
             styles.input,
-            'block pb-1 pt-2 pl-1 w-full border-b border-solid border-neutral-800 focus:outline-none text-slate-900'
+            'block pb-1 pt-2 pl-1 w-full border-b-2 border-solid border-slate-800 focus:outline-none text-slate-900'
           )}
         />
         <span

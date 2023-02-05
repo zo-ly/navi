@@ -17,8 +17,9 @@
 - [x] Dark mode
 - [x] 考虑 quote loading 效果
 
-## Getting Started
+## Testing Locally
 
 ```bash
+pnpm i
 pnpm dev
 ```

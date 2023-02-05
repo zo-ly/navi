@@ -44,7 +44,7 @@ const BookMark: FC<BookMarkProps> = ({ id, link, name, onSetting }) => {
           'touch-manipulation',
           'relative transition group cursor-pointer',
           'flex items-center mb-3 px-3 h-20 border-b-2 border-sky-400 border-dashed',
-          'md:border-none md:bg-white md:rounded-lg md:bg-transparent md:flex-col md:justify-center md:mb-0 md:w-28 md:h-28 md:hover:bg-black/5'
+          'md:border-none md:rounded-lg md:bg-transparent md:flex-col md:justify-center md:mb-0 md:w-28 md:h-28 md:hover:bg-black/5'
         )}
       >
         <div className="w-12 h-12 rounded-full bg-white flex justify-center items-center md:mx-auto">
@@ -61,7 +61,7 @@ const BookMark: FC<BookMarkProps> = ({ id, link, name, onSetting }) => {
             onError={() => setErrorOrLoading(true)}
           />
         </div>
-        <div className="text-base text-slate-900 dark:md:text-slate-200 flex-1 w-0 truncate mx-3 md:w-auto md:flex-none md:text-center md:text-xs md:mt-3">
+        <div className="text-base text-slate-900 dark:text-slate-200 flex-1 w-0 truncate mx-3 md:w-auto md:flex-none md:text-center md:text-xs md:mt-3">
           {name}
         </div>
         <div

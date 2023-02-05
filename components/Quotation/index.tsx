@@ -24,7 +24,7 @@ const Quotation: FC<IProps> = ({ show, onClick }) => {
     <div
       onClick={onClick}
       style={{ zIndex, left }}
-      className="relative duration-300 transition-all w-[95%] md:max-w-md mt-2 cursor-pointer"
+      className="relative duration-300 transition-all w-[95%] md:max-w-md cursor-pointer"
     >
       <div className={cx(eduVic.className, 'block text-sm')}>
         <div className="relative m-0 pt-20 pb-16 px-4 md:px-6 shadow-lg shadow-black/30 text-slate-50 text-sm rounded-xl bg-gradient-to-r from-cyan-500 to-pink-500 bg-[length:400%_400%] animate-gradient">
