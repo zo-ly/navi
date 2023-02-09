@@ -65,7 +65,7 @@ const SettingModal: FC<ISettingModal> = ({
         }
       >
         <div>
-          <h1 className="font-bold text-lg">{title}</h1>
+          <h1 className="font-bold text-lg text-slate-800">{title}</h1>
           <div className="mt-2">
             {LABEL_GROUP.map(({ label, name, rules }) => (
               <Controller

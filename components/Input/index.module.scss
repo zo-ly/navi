@@ -5,7 +5,7 @@
   bottom: 0px;
   height: 2px;
   width: 0;
-  background: rgb(56 189 248);
+  background: #324493;
   transition: 0.2s ease all;
 }
 
@@ -22,7 +22,7 @@
     ~ label .char {
       transform: translateY(-1.25rem);
       font-size: 0.875rem;
-      color: rgb(56 189 248);
+      color: #324493;
     }
   }
 }

@@ -1,7 +1,7 @@
 $default-shadow: 0 4px 14px rgb(0 0 0 / 20%);
 $default-hover-shadow: 0 6px 20px rgb(93 93 93 / 33%);
-$primary-shadow: 0 4px 14px rgb(0 118 255 / 39%);
-$primary-hover-shadow: 0 6px 20px rgb(0 118 255 / 52%);
+$primary-shadow: 0 4px 14px rgb(50 68 147 / 39%);
+$primary-hover-shadow: 0 6px 20px rgb(50 68 147 / 52%);
 $danger-shadow: 0 4px 10px rgb(239 68 68 / 20%);
 $danger-hover-shadow: 0 6px 10px rgb(239 68 68 / 30%);
 
@@ -22,7 +22,7 @@ $danger-hover-shadow: 0 6px 10px rgb(239 68 68 / 30%);
 }
 
 .primary {
-  background-color: rgb(56 189 248);
+  background-color: #324493;
   color: #fff;
   box-shadow: $primary-shadow;
 
