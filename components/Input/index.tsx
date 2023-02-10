@@ -17,7 +17,7 @@ const Input: FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
     const labelDisplay = label.split('')
     return (
       <div
-        className={cx('relative py-3 mb-2 md:max-w-sm', {
+        className={cx('relative py-3 md:max-w-sm', {
           [styles.error]: showError,
         })}
       >

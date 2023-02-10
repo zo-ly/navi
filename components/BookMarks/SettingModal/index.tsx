@@ -68,16 +68,21 @@ const SettingModal: FC<ISettingModal> = ({
           <h1 className="font-bold text-lg text-slate-800">{title}</h1>
           <div className="mt-2">
             {LABEL_GROUP.map(({ label, name, rules }) => (
-              <Controller
-                key={name}
-                rules={rules}
-                name={`${FORM_KEY}.${name}`}
-                render={({ field, fieldState }) => {
-                  return (
-                    <Input {...field} error={fieldState.error} label={label} />
-                  )
-                }}
-              />
+              <div className="mb-2 last:mb-0" key={name}>
+                <Controller
+                  rules={rules}
+                  name={`${FORM_KEY}.${name}`}
+                  render={({ field, fieldState }) => {
+                    return (
+                      <Input
+                        {...field}
+                        error={fieldState.error}
+                        label={label}
+                      />
+                    )
+                  }}
+                />
+              </div>
             ))}
           </div>
         </div>
