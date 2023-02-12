@@ -41,6 +41,7 @@ const SearchEngines: FC = () => {
           className="cursor-pointer select-none h-full pl-3.5 flex items-center"
         >
           <Image
+            priority
             width={20}
             height={20}
             alt="logo"
@@ -63,10 +64,17 @@ const SearchEngines: FC = () => {
                 onClick={onMenuItemClick(engine)}
                 className="h-11 px-3.5 w-40 flex items-center cursor-pointer hover:bg-slate-100"
               >
-                <Image src={icon} width={20} height={20} alt="engine" />
+                <Image
+                  priority
+                  src={icon}
+                  width={20}
+                  height={20}
+                  alt="engine"
+                />
                 <div className="ml-4 flex-1 truncate">{label}</div>
                 {currentEngine === engine && (
                   <Image
+                    priority
                     width={20}
                     height={20}
                     src="/check.svg"
