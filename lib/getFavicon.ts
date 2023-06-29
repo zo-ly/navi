@@ -7,10 +7,14 @@ export default async function getFavicon(
 ) {
   try {
     const { query } = req
-    const { data } = await axios.get('https://www.google.com/s2/favicons', {
-      params: query,
-      responseType: 'arraybuffer',
-    })
+    if (typeof query.domain !== 'string') throw Error('domain is nil')
+    const domain = new URL(query.domain).hostname
+    const { data } = await axios.get(
+      `https://icons.duckduckgo.com/ip3/${domain}.ico`,
+      {
+        responseType: 'arraybuffer',
+      }
+    )
     res.setHeader('Content-Type', 'image/jpeg').send(Buffer.from(data))
   } catch (e) {
     res.status(404).send(null)
