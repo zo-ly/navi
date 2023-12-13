@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import cx from 'classnames'
-import { Edu_VIC_WA_NT_Beginner } from '@next/font/google'
+import { Edu_VIC_WA_NT_Beginner } from 'next/font/google'
 import useLeftIn from '../../hooks/useLeftIn'
 import useQuote from '../../hooks/useQuote'
 

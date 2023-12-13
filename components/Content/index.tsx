@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import cx from 'classnames'
 import Image from 'next/image'
-import { Dancing_Script } from '@next/font/google'
+import { Dancing_Script } from 'next/font/google'
 import SearchBar from '../SearchBar'
 import BookMarks from '../BookMarks'
 
@@ -25,7 +25,9 @@ const Content: FC<IProps> = ({ zIndex, onClick }) => {
         <span className={cx(dancingS.className, 'mr-5 font-bold')}>
           Hi there
         </span>
-        <Image src="/hi.gif" width={48} height={48} alt="hi" className="mb-1" />
+        <div className="relative mb-1 w-12 h-12">
+          <Image src="/hi.gif" fill sizes="100%" alt="hi" />
+        </div>
       </h1>
       <div className="w-full max-w-xl px-4">
         <SearchBar />
