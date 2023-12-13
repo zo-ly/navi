@@ -16,6 +16,9 @@ module.exports = {
         gradient: 'gradient 15s ease infinite',
       },
     },
+    fontFamily: {
+      main: ['Source Sans Pro', 'Helvetica Neue', 'Arial', 'sans-serif'],
+    },
   },
   plugins: [],
 }
