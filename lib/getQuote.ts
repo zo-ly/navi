@@ -7,7 +7,8 @@ export default async function getQuote(
 ) {
   try {
     const { data } = await axios.get(
-      'https://apiv3.shanbay.com/weapps/dailyquote/quote/'
+      // 'https://apiv3.shanbay.com/weapps/dailyquote/quote/'
+      'https://open.iciba.com/dsapi/'
     )
     res.status(200).json(data)
   } catch (e) {
