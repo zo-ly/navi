@@ -16,7 +16,7 @@ const eduVic = Edu_VIC_WA_NT_Beginner({
 const Quotation: FC<IProps> = ({ show, onClick }) => {
   const { left, zIndex } = useLeftIn(show, 300)
   const { data: quote, error, isLoading } = useQuote()
-  const { content, note, dateline } = quote
+  const { content, translation, author } = quote
   const nothing = error || isLoading || !content
 
   if (nothing) return null
@@ -34,8 +34,8 @@ const Quotation: FC<IProps> = ({ show, onClick }) => {
           <div className="relative m-0 pt-12 pb-10 px-4 md:px-6 shadow-lg shadow-black/30 text-slate-50 text-sm rounded-xl bg-gradient-to-r from-cyan-500 to-pink-500 bg-[length:400%_400%] animate-gradient">
             <i className="absolute top-12 left-3 font-bold text-4xl">“</i>
             <p className="indent-4 block font-bold text-xl">{content}</p>
-            <p className="indent-4 mt-2 mb-3 text-sm">{note}</p>
-            <p className="text-right font-bold text-md">{dateline}</p>
+            <p className="indent-4 mt-2 mb-3 text-sm">{translation}</p>
+            <p className="text-right font-bold text-md">{author}</p>
           </div>
         </div>
       </div>
